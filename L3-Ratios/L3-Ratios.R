@@ -1,7 +1,10 @@
 #Welcome to Lab 3, please answer the following questions
 
 #Install and require package MASS
+library(MASS)
+library (dplyr)
 
+data <- mutate(anorexia)
 
 #Using the built in dataset anorexia, aggregate the data to look at:
 #       1. the number of patients who received a treatment (choose one) who responded positively to treatment
@@ -14,13 +17,16 @@
 
 #What kind of analysis appropriate to perform on a study like this?
 
-
+# a cohort study would be most appropriate for a dataset like this
 
 
 #Perform the appropriate choice on the dataset
 
+data <- mutate(anorexia, "total" = Prewt + Postwt) %>% 
+  group_by(Treat) %>% 
+  summarize("average.Postwt" = mean(Postwt), "average.Prewt" = mean(Prewt), "average.total" = mean(total))
 
-
+data <- mutate(data, "RR" = (average.Postwt / average.total) / (data[2,2] / data[2,4]))
 
 #What does your result tell you?
 
